@@ -2,8 +2,12 @@
 
 (defn part-1
   "Day 01 Part 1"
-  [input]
-  input)
+  [input] (->>
+           (map
+            #(if (= %1 %2) (- (int %1) 48) 0)
+            input
+            (drop 1 (cycle input)))
+           (reduce +)))
 
 (defn part-2
   "Day 01 Part 2"
