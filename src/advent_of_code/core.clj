@@ -1,5 +1,6 @@
 (ns advent-of-code.core
-  (:require [advent-of-code.day-01]
+  (:require [clojure.string :refer [trimr]]
+            [advent-of-code.day-01]
             [advent-of-code.day-02]
             [advent-of-code.day-03]
             [advent-of-code.day-04]
@@ -27,7 +28,7 @@
 
 (defn read-input
   [day]
-  (slurp (clojure.java.io/resource day)))
+  (trimr (slurp (clojure.java.io/resource day))))
 
 (defn -main
   "Used to dispatch tasks from the command line.
