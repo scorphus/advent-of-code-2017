@@ -19,5 +19,19 @@
   (is (= 9 (part-1 "91212129"))))
 
 (deftest part2
-  (let [expected ""]
-    (is (= expected (part-2 (slurp (resource "day-01-example.txt")))))))
+  (is (= 0 (part-2 (slurp (resource "day-01-example.txt"))))))
+
+(deftest part2-1
+  (is (= 6 (part-2 "1212"))))
+
+(deftest part2-2
+  (is (= 0 (part-2 "1221"))))
+
+(deftest part2-3
+  (is (= 4 (part-2 "123425"))))
+
+(deftest part2-4
+  (is (= 12 (part-2 "123123"))))
+
+(deftest part2-5
+  (is (= 4 (part-2 "12131415"))))
