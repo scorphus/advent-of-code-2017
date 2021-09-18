@@ -11,7 +11,19 @@
            (map #(- (apply max %) (apply min %)))
            (reduce +)))
 
+(defn whole-division
+  [nums] (->>
+          (for [a nums
+                b nums
+                :when (and (not= a b) (zero? (mod a b)))]
+            (quot a b))
+          (first)))
+
 (defn part-2
   "Day 02 Part 2"
-  [input]
-  input)
+  [input] (->>
+           (split-lines input)
+           (map #(split % #"\s+"))
+           (map #(map util/parse-int %))
+           (map whole-division)
+           (reduce +)))
