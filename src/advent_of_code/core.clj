@@ -32,7 +32,7 @@
 
 (defn -main
   "Used to dispatch tasks from the command line.
-  
+
   lein run d01.p1"
   [part]
   (case part
@@ -87,4 +87,3 @@
     "d25.p1" (println (advent-of-code.day-25/part-1 (read-input "day-25.txt")))
     "d25.p2" (println (advent-of-code.day-25/part-2 (read-input "day-25.txt")))
     (println "not found")))
-
