@@ -17,3 +17,7 @@ jobs:
       run: lein deps
     - name: Run tests
       run: lein test
+    - name: Produce coverage report for Codecov
+      run: lein cloverage --codecov
+    - name: Send coverage report to Codecov
+      run: bash <(curl -s https://codecov.io/bash)
