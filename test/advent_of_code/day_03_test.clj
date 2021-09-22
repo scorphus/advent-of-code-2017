@@ -1,7 +1,6 @@
 (ns advent-of-code.day-03-test
   (:require [clojure.test :refer [deftest is]]
-            [advent-of-code.day-03 :refer [part-1 part-2]]
-            [clojure.java.io :refer [resource]]))
+            [advent-of-code.day-03 :refer [part-1 part-2]]))
 
 (deftest part-1-example-1
   (is (= 0 (part-1 "1"))))
