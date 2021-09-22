@@ -24,6 +24,14 @@
 (deftest part-1-example-7
   (is (= 6 (part-1 "49"))))
 
-(deftest part-2-example
-  (let [expected ""]
-    (is (= expected (part-2 (slurp (resource "day-03-example.txt")))))))
+(deftest part-2-example-1
+  (is (= 806 (part-2 "747"))))
+
+(deftest part-2-example-2
+  (is (= 931 (part-2 "880"))))
+
+(deftest part-2-example-3
+  (is (= 45220 (part-2 "42452"))))
+
+(deftest part-2-example-4
+  (is (= 45220 (part-2 "45219"))))
