@@ -13,5 +13,10 @@
 
 (defn part-2
   "Day 05 Part 2"
-  [input]
-  input)
+  [input] (loop [offsets (vec (map util/parse-int (split-lines input)))
+                 idx 0
+                 jumps 0]
+            (if-let [curr (get offsets idx)]
+              (let [next (if (< curr 3) (inc curr) (dec curr))]
+                (recur (assoc offsets idx next) (+ idx curr) (inc jumps)))
+              jumps)))
