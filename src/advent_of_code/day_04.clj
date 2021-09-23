@@ -11,5 +11,9 @@
 
 (defn part-2
   "Day 04 Part 2"
-  [input]
-  input)
+  [input] (->>
+           (split-lines input)
+           (map #(split % #"\s+"))
+           (map #(map sort %))
+           (filter #(apply distinct? %))
+           (count)))

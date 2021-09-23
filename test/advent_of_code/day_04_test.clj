@@ -5,8 +5,7 @@
             [clojure.string :refer [trimr]]))
 
 (deftest part-1-example
-  (is (= 2 (part-1 (trimr (slurp (resource "day-04-example.txt")))))))
+  (is (= 2 (part-1 (trimr (slurp (resource "day-04-part-1-example.txt")))))))
 
 (deftest part-2-example
-  (let [expected ""]
-    (is (not= expected (part-2 (trimr (slurp (resource "day-04-example.txt"))))))))
+  (is (= 3 (part-2 (trimr (slurp (resource "day-04-part-2-example.txt")))))))
