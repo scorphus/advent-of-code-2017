@@ -7,4 +7,4 @@
   (is (= "tknk" (part-1 (slurp (resource "day-07-example.txt"))))))
 
 (deftest part-2-example
-  (is (not= "" (part-2 (slurp (resource "day-07-example.txt"))))))
+  (is (= 60 (part-2 (slurp (resource "day-07-example.txt"))))))
