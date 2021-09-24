@@ -7,4 +7,4 @@
   (is (= 5 (part-1 "0	2	7	0"))))
 
 (deftest part-2-example
-  (is (not= "" (part-2 "0	2	7	0"))))
+  (is (= 4 (part-2 "0	2	7	0"))))
