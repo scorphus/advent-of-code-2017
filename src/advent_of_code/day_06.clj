@@ -4,21 +4,21 @@
 
 (defn reallocate
   "Balances the blocks between the memory banks"
-  [memory] (let [[lgr_i lgr_v] (util/max-indexed memory)
+  [memory] (let [[lgr-i lgr-v] (util/max-indexed memory)
                  length (count memory)]
              (loop [seen {memory 1}
-                    memory (assoc memory lgr_i 0)
-                    bank (rem (inc lgr_i) length)
-                    blocks lgr_v]
+                    memory (assoc memory lgr-i 0)
+                    bank (rem (inc lgr-i) length)
+                    blocks lgr-v]
                (if (zero? blocks)
                  (if (contains? seen memory)
                    [seen memory]
-                   (let [[lgr_i lgr_v] (util/max-indexed memory)]
+                   (let [[lgr-i lgr-v] (util/max-indexed memory)]
                      (recur
                       (assoc seen memory (count seen))
-                      (assoc memory lgr_i 0)
-                      (rem (inc lgr_i) length)
-                      lgr_v)))
+                      (assoc memory lgr-i 0)
+                      (rem (inc lgr-i) length)
+                      lgr-v)))
                  (let [memory (update memory bank inc)
                        bank (rem (inc bank) length)]
                    (recur seen memory bank (dec blocks)))))))
