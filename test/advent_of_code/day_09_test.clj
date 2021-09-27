@@ -26,5 +26,26 @@
 (deftest part-1-example-8
   (is (= 3 (part-1 "{{<a!>},{<a!>},{<a!>},{<ab>}}"))))
 
-(deftest part-2-example
-  (is (= "" (part-2 ""))))
+(deftest part-2-example-1
+  (is (= 0 (part-2 "<>"))))
+
+(deftest part-2-example-2
+  (is (= 17 (part-2 "<random characters>"))))
+
+(deftest part-2-example-3
+  (is (= 3 (part-2 "<<<<>"))))
+
+(deftest part-2-example-4
+  (is (= 2 (part-2 "<{!>}>"))))
+
+(deftest part-2-example-5
+  (is (= 0 (part-2 "<!!>"))))
+
+(deftest part-2-example-6
+  (is (= 0 (part-2 "<!!!>>"))))
+
+(deftest part-2-example-7
+  (is (= 10 (part-2 "<{o\"i!a,<{i<a>"))))
+
+(deftest part-2-example-8
+  (is (= 10 (part-2 "{<{o\"i!a,<{i<a>}"))))

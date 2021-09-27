@@ -16,5 +16,6 @@
 
 (defn part-2
   "Day 09 Part 2"
-  [input]
-  input)
+  [input] (let [input (replace input #"!." "")
+                matches (re-seq #"<(.*?)>" input)]
+            (reduce #(+ %1 (count (second %2))) 0 matches)))
