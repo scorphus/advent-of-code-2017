@@ -1,4 +1,5 @@
 (ns advent-of-code.day-09
+  (:refer-clojure :exclude [replace])
   (:require [clojure.string :refer [replace]]))
 
 (def replace-pairs "Pairs of `match` and `replacement`" [[#"!." ""]
