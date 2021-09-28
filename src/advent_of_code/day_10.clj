@@ -15,7 +15,7 @@
   "Day 10 Part 1"
   ([input] (part-1 input 256))
   ([input size]
-   (let [lengths (map util/parse-int (split input #","))
+   (let [lengths (mapv util/parse-int (split input #","))
          the-list (reduce rev-skip (range size) (map-indexed vector lengths))
          skips (* (count lengths) (dec (count lengths)) 1/2)
          droppage (- size (mod (apply + skips lengths) size))]
