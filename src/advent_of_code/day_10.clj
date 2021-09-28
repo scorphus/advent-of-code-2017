@@ -17,8 +17,9 @@
   ([input size]
    (let [lengths (mapv util/parse-int (split input #","))
          the-list (reduce rev-skip (range size) (map-indexed vector lengths))
+         forwards (apply + lengths)
          skips (* (count lengths) (dec (count lengths)) 1/2)
-         droppage (- size (mod (apply + skips lengths) size))]
+         droppage (- size (mod (+ forwards skips) size))]
      (apply * (take 2 (drop droppage the-list))))))
 
 (defn part-2
