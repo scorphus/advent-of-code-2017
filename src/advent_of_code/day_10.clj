@@ -1,5 +1,5 @@
 (ns advent-of-code.day-10
-  (:require [clojure.string :refer [split]]
+  (:require [clojure.string :refer [join split]]
             [advent-of-code.util :as util]))
 
 (defn rev-skip
@@ -24,5 +24,21 @@
 
 (defn part-2
   "Day 10 Part 2"
-  [input]
-  input)
+  ([input] (part-2 input 256 64 16))
+  ([input size rounds blocks]
+   (let [lengths (into (mapv byte input) [17 31 73 47 23])
+         acc-len-size (* rounds (count lengths))
+         the-list (reduce rev-skip
+                          (range size)
+                          (map vector (range acc-len-size) (cycle lengths)))
+         forwards (* rounds (apply + lengths))
+         skips (* acc-len-size (dec acc-len-size) 1/2)
+         droppage (- size (mod (+ forwards skips) size))]
+     (->>
+      (cycle the-list)
+      (drop droppage)
+      (take size)
+      (partition blocks)
+      (map #(apply bit-xor %))
+      (map #(format "%02x" %))
+      (join "")))))
