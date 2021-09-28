@@ -21,5 +21,11 @@
 (deftest part-1-example-6
   (is (= 2 (part-1 "se,sw,se,sw"))))
 
-(deftest part-2-example
-  (is (= "" (part-2 ""))))
+(deftest part-2-example-1
+  (is (= 3 (part-2 "ne,ne,ne"))))
+
+(deftest part-2-example-2
+  (is (= 2 (part-2 "ne,ne,sw,sw"))))
+
+(deftest part-2-example-3
+  (is (= 3 (part-2 "ne,ne,ne,s,s,s,nw,nw,nw"))))
