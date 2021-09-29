@@ -10,17 +10,18 @@
 
 (defn visit-all
   "Visits all programs reachable from a starting program"
-  [village start]
-  (loop [seen #{start}
-         next-progs (into '() [start])]
-    (if (empty? next-progs)
-      seen
-      (let [[prog & next-progs] next-progs]
-        (recur (conj seen prog)
-               (reduce
-                #(if (contains? seen %2) %1 (conj %1 %2))
-                next-progs
-                (get village prog)))))))
+  ([village] (visit-all village (first (keys village))))
+  ([village start]
+   (loop [seen #{start}
+          next-progs (list start)]
+     (if (empty? next-progs)
+       seen
+       (let [[prog & next-progs] next-progs]
+         (recur (conj seen prog)
+                (reduce
+                 #(if (contains? seen %2) %1 (conj %1 %2))
+                 next-progs
+                 (get village prog))))))))
 
 (defn part-1
   "Day 12 Part 1"
@@ -29,4 +30,8 @@
 (defn part-2
   "Day 12 Part 2"
   [input]
-  input)
+  (loop [counter 0
+         village (parse-village input)]
+    (if (empty? village)
+      counter
+      (recur (inc counter) (apply dissoc village (visit-all village))))))
