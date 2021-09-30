@@ -17,7 +17,15 @@
   "Day 13 Part 1"
   [input] (reduce trip-severity 0 (parse-record input)))
 
+(defn has-no-scanner
+  "Checks if a layer would be free from scanner"
+  [wait [depth range]] (pos? (mod (+ depth wait) (* (dec range) 2))))
+
+(defn find-passage
+  "Finds a passage through the firewall without being caught"
+  [record wait]
+  (if (every? (partial has-no-scanner wait) record) (reduced wait) record))
+
 (defn part-2
   "Day 13 Part 2"
-  [input]
-  input)
+  [input] (reduce find-passage (parse-record input) (range)))

@@ -8,4 +8,4 @@
   (is (= 24 (part-1 (trimr (slurp (resource "day-13-example.txt")))))))
 
 (deftest part-2-example
-  (is (not= "" (part-2 (trimr (slurp (resource "day-13-example.txt")))))))
+  (is (= 10 (part-2 (trimr (slurp (resource "day-13-example.txt")))))))
