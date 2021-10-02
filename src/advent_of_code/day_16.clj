@@ -21,22 +21,33 @@
   (let [[_ [a] [b]] (map vec (first (re-seq #"(.)/(.)" dance-move)))]
     (exchange programs (.indexOf programs a) (.indexOf programs b))))
 
+(defn dance
+  [dance-moves programs]
+  (reduce
+   (fn [programs dance-move]
+     (case (first dance-move)
+       \s (spin programs dance-move)
+       \x (exchange programs dance-move)
+       (partner programs dance-move)))
+   programs
+   dance-moves))
+
 (defn part-1
   "Day 16 Part 1"
   ([input] (part-1 input 16))
   ([input total]
    (let [dance-moves (split input #",")]
-     (join
-      (reduce
-       (fn [programs dance-move]
-         (case (first dance-move)
-           \s (spin programs dance-move)
-           \x (exchange programs dance-move)
-           (partner programs dance-move)))
-       (draft-programs total)
-       dance-moves)))))
+     (join (dance dance-moves (draft-programs total))))))
 
 (defn part-2
   "Day 16 Part 2"
-  [input]
-  input)
+  ([input] (part-2 input 16))
+  ([input total]
+   (let [dance-moves (split input #",")
+         programs (draft-programs total)
+         cycle-length (inc (count (take-while
+                                   #(not= % programs)
+                                   (iterate (partial dance dance-moves)
+                                            (dance dance-moves programs)))))
+         num-dances (mod 1e9 cycle-length)]
+     (join (nth (iterate (partial dance dance-moves) programs) num-dances)))))

@@ -8,4 +8,4 @@
   (is (= "baedc" (part-1 (trimr (slurp (resource "day-16-example.txt"))) 5))))
 
 (deftest part-2-example
-  (is (not= "" (part-2 (trimr (slurp (resource "day-16-example.txt")))))))
+  (is (= "abcde" (part-2 (trimr (slurp (resource "day-16-example.txt"))) 5))))
