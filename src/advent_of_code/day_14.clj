@@ -11,10 +11,10 @@
 
 (defn key-string->grid
   [key-string rows] (->>
-            (map vector (cycle [key-string]) (range rows))
-            (map (partial join "-"))
-            (map day-10/part-2)
-            (mapv hash->grid)))
+                     (map vector (cycle [key-string]) (range rows))
+                     (map (partial join "-"))
+                     (map day-10/part-2)
+                     (mapv hash->grid)))
 
 (defn part-1
   "Day 14 Part 1"
