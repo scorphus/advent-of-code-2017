@@ -2,4 +2,5 @@
   :dependencies [[org.clojure/clojure "1.10.0"]]
   :main advent-of-code.core
   :repl-options {:init-ns advent-of-code.core}
-  :plugins [[lein-cloverage "1.2.2"]])
+  :plugins [[lein-cljfmt "0.8.0"]
+            [lein-cloverage "1.2.2"]])
