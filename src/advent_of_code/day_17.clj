@@ -14,4 +14,11 @@
 (defn part-2
   "Day 17 Part 2"
   [input]
-  input)
+  (let [steps (Integer/parseInt (first (re-seq #"\d+" input)))]
+    (first
+     (reduce
+      (fn [[ans pos] val]
+        (let [pos (mod (+ pos steps) val)]
+          [(if (zero? pos) val ans) (inc pos)]))
+      [1 1]
+      (range 1 5e7)))))

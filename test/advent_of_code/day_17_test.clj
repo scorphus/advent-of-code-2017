@@ -7,4 +7,4 @@
   (is (= 638 (part-1 (slurp (resource "day-17-example.txt"))))))
 
 (deftest part-2-example
-  (is (not= "" (part-2 (slurp (resource "day-17-example.txt"))))))
+  (is (= 1222153 (part-2 (slurp (resource "day-17-example.txt"))))))
