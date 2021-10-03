@@ -45,9 +45,11 @@
   ([input total]
    (let [dance-moves (split input #",")
          programs (draft-programs total)
-         cycle-length (inc (count (take-while
-                                   #(not= % programs)
-                                   (iterate (partial dance dance-moves)
-                                            (dance dance-moves programs)))))
+         dance-cycle (take-while
+                      #(not= % programs)
+                      (iterate (partial dance dance-moves)
+                               (dance dance-moves programs)))
+         cycle-length (inc (count dance-cycle))
          num-dances (mod 1e9 cycle-length)]
-     (join (nth (iterate (partial dance dance-moves) programs) num-dances)))))
+     (join (if (zero? num-dances) programs
+               (nth dance-cycle (dec num-dances)))))))
