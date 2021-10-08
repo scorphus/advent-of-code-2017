@@ -8,7 +8,7 @@
     (not= id (upper-case id)) (get regs id 0)
     :else (Integer/parseInt id)))
 
-(def instructions-map
+(def instr-map
   {"add" (fn [x x-val _ y-val regs]
            [(assoc regs x (+ x-val y-val))
             :continue
@@ -53,11 +53,9 @@
   (loop [i 0
          regs {}]
     (let [[instr [x y]] (get instructions i)
-          [regs action jump] ((valued (get instructions-map instr)) x y regs)
+          [regs act jump] ((valued (get instr-map instr)) x y regs)
           i (+ i jump)]
-      (if (= action :wait)
-        regs
-        (recur i regs)))))
+      (if (= act :wait) regs (recur i regs)))))
 
 (defn part-1
   "Day 18 Part 1"
@@ -73,16 +71,16 @@
          regs-j {"p" 1 "queue" (clojure.lang.PersistentQueue/EMPTY)}]
     (let [[instr-i [xi yi]] (get instructions i)
           [instr-j [xj yj]] (get instructions j)
-          [regs-i action-i jump-i] ((valued (get instructions-map instr-i)) xi yi regs-i)
-          [regs-j action-j jump-j] ((valued (get instructions-map instr-j)) xj yj regs-j)
+          [regs-i act-i jump-i] ((valued (get instr-map instr-i)) xi yi regs-i)
+          [regs-j act-j jump-j] ((valued (get instr-map instr-j)) xj yj regs-j)
           i (+ i jump-i)
           j (+ j jump-j)]
-      (if (= [action-i action-j] [:wait :wait])
+      (if (= [act-i act-j] [:wait :wait])
         [regs-i regs-j]
-        (let [regs-i (if (= action-j :send)
+        (let [regs-i (if (= act-j :send)
                        (update regs-i "queue" conj (get regs-j "snd"))
                        regs-i)
-              regs-j (if (= action-i :send)
+              regs-j (if (= act-i :send)
                        (update regs-j "queue" conj (get regs-i "snd"))
                        regs-j)]
           (recur i j regs-i regs-j))))))
