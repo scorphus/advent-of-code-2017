@@ -2,10 +2,10 @@
   (:require [clojure.string :refer [split upper-case]]))
 
 (defn get-value
-  [registers id]
+  [regs id]
   (cond
     (nil? id) id
-    (not= id (upper-case id)) (get registers id 0)
+    (not= id (upper-case id)) (get regs id 0)
     :else (Integer/parseInt id)))
 
 (def instructions-map
@@ -38,27 +38,26 @@
             :send
             1])})
 
-(defn valued
-  [f] (fn [x y regs] (f x (get-value regs x) y (get-value regs y) regs)))
-
 (defn parse-instructions
   [input]
   (let [instructions (split input #"\n")]
     (->>
      (map #(re-seq #"[^\s]+" %) instructions)
-     (map (fn [[instr & args]] [(get instructions-map instr) args]))
-     (mapv (fn [[func [x & y]]] [(valued func) [x (and y (first y))]])))))
+     (mapv (fn [[instr x & y]] [instr [x (and y (first y))]])))))
+
+(defn valued
+  [f] (fn [x y regs] (f x (get-value regs x) y (get-value regs y) regs)))
 
 (defn execute
   [instructions]
   (loop [i 0
-         registers {}]
+         regs {}]
     (let [[instr [x y]] (get instructions i)
-          [registers action jump] (instr x y registers)
+          [regs action jump] ((valued (get instructions-map instr)) x y regs)
           i (+ i jump)]
       (if (= action :wait)
-        registers
-        (recur i registers)))))
+        regs
+        (recur i regs)))))
 
 (defn part-1
   "Day 18 Part 1"
@@ -74,8 +73,8 @@
          regs-j {"p" 1 "queue" (clojure.lang.PersistentQueue/EMPTY)}]
     (let [[instr-i [xi yi]] (get instructions i)
           [instr-j [xj yj]] (get instructions j)
-          [regs-i action-i jump-i] (instr-i xi yi regs-i)
-          [regs-j action-j jump-j] (instr-j xj yj regs-j)
+          [regs-i action-i jump-i] ((valued (get instructions-map instr-i)) xi yi regs-i)
+          [regs-j action-j jump-j] ((valued (get instructions-map instr-j)) xj yj regs-j)
           i (+ i jump-i)
           j (+ j jump-j)]
       (if (= [action-i action-j] [:wait :wait])
