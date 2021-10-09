@@ -8,4 +8,4 @@
   (is (= "ABCDEF" (part-1 (trim-newline (slurp (resource "day-19-example.txt")))))))
 
 (deftest part-2-example
-  (is (not= "" (part-2 (trim-newline (slurp (resource "day-19-example.txt")))))))
+  (is (= 38 (part-2 (trim-newline (slurp (resource "day-19-example.txt")))))))
