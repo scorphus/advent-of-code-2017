@@ -28,7 +28,23 @@
    (apply min-key #(distance-after 1e6 %))
    (first)))
 
+(defn collide
+  [particles]
+  (into []
+        (comp
+         (remove (fn [[_k v]] (> (count v) 1)))
+         (map (comp first val)))
+        (group-by #(pos-xyz (first %) (second %)) particles)))
+
+(defn tick [[t pva]] [(inc t) pva])
+
 (defn part-2
   "Day 20 Part 2"
   [input]
-  input)
+  (->>
+   (parse-particles input)
+   (map #(vector 0 (second %)))
+   (iterate #(collide (map tick %)))
+   (drop 50)
+   (first)
+   (count)))
