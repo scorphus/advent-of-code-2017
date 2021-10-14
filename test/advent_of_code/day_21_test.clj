@@ -1,12 +1,8 @@
 (ns advent-of-code.day-21-test
   (:require [clojure.test :refer [deftest is]]
-            [advent-of-code.day-21 :refer [part-1 part-2]]
-            [clojure.java.io :refer [resource]]))
+            [advent-of-code.day-21 :refer [iter]]
+            [clojure.java.io :refer [resource]]
+            [clojure.string :refer [trim-newline]]))
 
 (deftest part-1-example
-  (let [expected ""]
-    (is (= expected (part-1 (slurp (resource "day-21-example.txt")))))))
-
-(deftest part-2-example
-  (let [expected ""]
-    (is (= expected (part-2 (slurp (resource "day-21-example.txt")))))))
+  (is (= 12 (iter (trim-newline (slurp (resource "day-21-example.txt"))) 2))))
