@@ -114,4 +114,4 @@
 (defn part-2
   "Day 21 Part 2"
   [input]
-  input)
+  (iter input 18))
