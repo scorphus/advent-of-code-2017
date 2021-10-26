@@ -1,9 +1,42 @@
 (ns advent-of-code.day-22)
 
+(defn parse-grid
+  [input]
+  (first
+   (reduce
+    (fn [[grid r] row]
+      [(first
+        (reduce
+         (fn [[grid r c] node]
+           [(if (= node "#") (conj grid [r c]) grid) r (inc c)])
+         [grid r 0]
+         (re-seq #"." row)))
+       (inc r)])
+    [#{} 0]
+    (re-seq #"[^\n]+" input))))
+
+(defn turn [[Δr Δc] infected] (if infected [Δc (- Δr)] [(- Δc) Δr]))
+
+(defn move-in-bursts
+  ([[grid [r c] deltas infections]]
+   (let [infected (contains? grid [r c])
+         [Δr Δc :as deltas] (turn deltas infected)
+         grid (if infected (disj grid [r c]) (conj grid [r c]))
+         position [(+ r Δr) (+ c Δc)]
+         infections (if infected infections (inc infections))]
+     [grid position deltas infections])))
+
 (defn part-1
   "Day 22 Part 1"
   [input]
-  input)
+  (let [grid (parse-grid input)
+        map-size (inc (apply max (flatten (vec grid))))
+        mid-point (quot map-size 2)]
+    (->>
+     (iterate move-in-bursts [grid [mid-point mid-point] [-1 0] 0])
+     (drop 10000)
+     (first)
+     (last))))
 
 (defn part-2
   "Day 22 Part 2"
