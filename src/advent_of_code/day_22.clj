@@ -32,8 +32,7 @@
         mid-point (quot (inc (apply max (flatten (vec grid)))) 2)]
     (->
      (iterate move-in-bursts [grid [mid-point mid-point] [-1 0] 0])
-     (drop 10000)
-     (first)
+     (nth 10000)
      (last))))
 
 (defn part-2
