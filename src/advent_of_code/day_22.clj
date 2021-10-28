@@ -22,17 +22,15 @@
    (let [infected (contains? grid [r c])
          [Δr Δc :as deltas] (turn deltas infected)
          grid (if infected (disj grid [r c]) (conj grid [r c]))
-         position [(+ r Δr) (+ c Δc)]
          infections (if infected infections (inc infections))]
-     [grid position deltas infections])))
+     [grid [(+ r Δr) (+ c Δc)] deltas infections])))
 
 (defn part-1
   "Day 22 Part 1"
   [input]
   (let [grid (parse-grid input)
-        map-size (inc (apply max (flatten (vec grid))))
-        mid-point (quot map-size 2)]
-    (->>
+        mid-point (quot (inc (apply max (flatten (vec grid)))) 2)]
+    (->
      (iterate move-in-bursts [grid [mid-point mid-point] [-1 0] 0])
      (drop 10000)
      (first)
