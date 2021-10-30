@@ -12,14 +12,17 @@
            [(assoc regs x (- x´ y´)) 1])})
 
 (defn execute
-  [instructions]
-  (loop [i 0
-         regs {}]
-    (let [[instr [x y]] (get instructions i)
-          [regs jump] ((valued (get instr-map instr)) x y regs)
-          regs (assoc regs instr (inc (get regs instr 0)))
-          i (+ i jump)]
-      (if (>= i (count instructions)) regs (recur i regs)))))
+  ([instructions] (execute instructions {} false))
+  ([instructions regs pred]
+   (loop [i 0
+          regs regs]
+     (let [[instr [x y]] (get instructions i)
+           [regs jump] ((valued (get instr-map instr)) x y regs)
+           regs (assoc regs instr (inc (get regs instr 0)))
+           i (+ i jump)]
+       (if (and pred (pred regs)) regs
+           (if (>= i (count instructions)) regs
+               (recur i regs)))))))
 
 (defn part-1
   "Day 23 Part 1"
@@ -27,7 +30,20 @@
   (let [instructions (parse-instructions input)]
     (get (execute instructions) "mul")))
 
+(defn divides? [k n] (zero? (mod k n)))
+
+(defn prime? [n]
+  (or (= 2 n)
+      (and (< 1 n)
+           (odd? n)
+           (not-any? (partial divides? n)
+                     (range 3 (inc (Math/sqrt n)) 2)))))
+
 (defn part-2
   "Day 23 Part 2"
   [input]
-  input)
+  (let [instructions (parse-instructions input)
+        pred #(> (get % "c" 0) (get % "b" 0))
+        regs (execute instructions {"a" 1} pred)
+        [b c] [(get regs "b") (get regs "c")]]
+    (count (remove prime? (range b (inc c) 17)))))
