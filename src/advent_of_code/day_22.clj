@@ -37,9 +37,9 @@
   ([[grid [r c] deltas must-evolve infections]]
    (let [node (get grid [r c])
          [Δr Δc :as deltas] (turn deltas node)
-         node' (evolve must-evolve node)
-         grid (assoc grid [r c] node')
-         infections (if (= node' :infected) (inc infections) infections)]
+         node (evolve must-evolve node)
+         grid (assoc grid [r c] node)
+         infections (if (= node :infected) (inc infections) infections)]
      [grid [(+ r Δr) (+ c Δc)] deltas must-evolve infections])))
 
 (defn part-1
