@@ -1,0 +1,16 @@
+mul a 1
+mul a 1
+sub a 2
+sub a 2
+set a a
+set a a
+jnz a 5
+jnz a 5
+set a 0
+set a 0
+jnz a -1
+jnz a -1
+set a 1
+set a 1
+sub a -2
+sub a -2
