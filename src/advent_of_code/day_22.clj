@@ -33,7 +33,7 @@
            :weakened)
     (case node :infected nil :infected)))
 
-(defn move-in-bursts
+(defn burst
   ([[grid [r c] deltas must-evolve infections]]
    (let [node (get grid [r c])
          [Δr Δc :as deltas] (turn deltas node)
@@ -42,22 +42,21 @@
          infections (if (= node :infected) (inc infections) infections)]
      [grid [(+ r Δr) (+ c Δc)] deltas must-evolve infections])))
 
-(defn part-1
-  "Day 22 Part 1"
-  [input]
+(defn move-in-bursts
+  [input must-evolve bursts]
   (let [grid (parse-grid input)
         mid-point (quot (inc (apply max (flatten (keys grid)))) 2)]
     (->
-     (iterate move-in-bursts [grid [mid-point mid-point] [-1 0] false 0])
-     (nth 10000)
+     (iterate burst [grid [mid-point mid-point] [-1 0] must-evolve 0])
+     (nth bursts)
      (last))))
+
+(defn part-1
+  "Day 22 Part 1"
+  [input]
+  (move-in-bursts input false 10000))
 
 (defn part-2
   "Day 22 Part 2"
   [input]
-  (let [grid (parse-grid input)
-        mid-point (quot (inc (apply max (flatten (keys grid)))) 2)]
-    (->
-     (iterate move-in-bursts [grid [mid-point mid-point] [-1 0] true 0])
-     (nth 10000000)
-     (last))))
+  (move-in-bursts input true 10000000))
