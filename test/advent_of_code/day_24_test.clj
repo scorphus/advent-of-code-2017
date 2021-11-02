@@ -31,4 +31,4 @@
 "))))
 
 (deftest part-2-example
-  (is (not= "" (part-2 (slurp (resource "day-24-example.txt"))))))
+  (is (= 19 (part-2 (slurp (resource "day-24-example.txt"))))))
