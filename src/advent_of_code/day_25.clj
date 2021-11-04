@@ -39,5 +39,5 @@
 
 (defn part-2
   "Day 25 Part 2"
-  [input]
-  input)
+  [_]
+  "The garbage collector winks at you, then continues sweeping.")

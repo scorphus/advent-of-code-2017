@@ -7,4 +7,5 @@
   (is (= 3 (part-1 (slurp (resource "day-25-example.txt"))))))
 
 (deftest part-2-example
-  (is (not= "" (part-2 (slurp (resource "day-25-example.txt"))))))
+  (is (= "The garbage collector winks at you, then continues sweeping."
+         (part-2 (slurp (resource "day-25-example.txt"))))))
